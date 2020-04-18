@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -49,6 +50,10 @@ public class GestorPedidos {
 	 */
 	public GestorPedidos() {
 		initialize();
+	}
+	
+	public void Return() {
+		frmGestorDePedidos.setVisible(false);
 	}
 
 	/**
@@ -349,7 +354,11 @@ public class GestorPedidos {
 		
 		btnProveedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frmGestorDePedidos,"Second Window (in development)");
+				//JOptionPane.showMessageDialog(frmGestorDePedidos,"Second Window (in development)");
+				GestorProveedores hija = new GestorProveedores(frmGestorDePedidos);
+				hija.getFrame().setVisible(true);
+				hija.getFather(frmGestorDePedidos);
+				frmGestorDePedidos.setVisible(false);   
 			}
 		});
 		
