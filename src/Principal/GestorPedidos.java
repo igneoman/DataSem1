@@ -130,7 +130,7 @@ public class GestorPedidos {
 		textPane.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
-	            if (textPane.getText().length() >= 180 ) // limit to 300
+	            if (textPane.getText().length() >= 180 ) // limit to 180
 	                e.consume();
 	        }
 	    });
@@ -152,7 +152,7 @@ public class GestorPedidos {
 		textPane_1.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
-	            if (textPane_1.getText().length() >= 180 ) // limit to 300
+	            if (textPane_1.getText().length() >= 180 ) // limit to 180
 	                e.consume();
 	        }
 	    });
