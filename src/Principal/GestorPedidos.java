@@ -247,19 +247,6 @@ public class GestorPedidos {
 		frmGestorDePedidos.getContentPane().add(btnAceptar);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				String[] options = new String[2];
-				options[0] = new String("Sí");
-				options[1] = new String("No");
-				int result=JOptionPane.showOptionDialog(frmGestorDePedidos.getContentPane(),"¿Realmente desea salir?","Confirmar salida", 0, JOptionPane.QUESTION_MESSAGE,null,options,null);
-				if(result==0)
-			    {
-			      System.exit(0);          
-			    }
-			}
-		});
 		btnSalir.setBounds(248, 332, 89, 23);
 		frmGestorDePedidos.getContentPane().add(btnSalir);
 		
@@ -286,9 +273,21 @@ public class GestorPedidos {
 		
 		//Acciones
 		
-		btnAgregar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] options = new String[2];
+				options[0] = new String("Sí");
+				options[1] = new String("No");
+				int result=JOptionPane.showOptionDialog(frmGestorDePedidos.getContentPane(),"¿Realmente desea salir?","Confirmar salida", 0, JOptionPane.QUESTION_MESSAGE,null,options,null);
+				if(result==0)
+			    {
+			      System.exit(0);          
+			    }
+			}
+		});
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				textField_0.setEnabled(true);
 				textField_1.setEnabled(true);
 				textField_2.setEnabled(true);
@@ -307,9 +306,8 @@ public class GestorPedidos {
 			}
 		});
 		
-		btnEliminar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				textField_0.setEnabled(true);
 				btnAceptar.setVisible(true);
 				btnAceptar.setEnabled(true);
@@ -320,9 +318,8 @@ public class GestorPedidos {
 			}
 		});
 		
-		btnActualizar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				textField_0.setEnabled(true);
 				btnComprobar.setVisible(true);
 				btnComprobar.setEnabled(true);
@@ -333,9 +330,8 @@ public class GestorPedidos {
 			}
 		});
 		
-		btnComprobar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnComprobar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				textField_1.setEnabled(true);
 				textField_2.setEnabled(true);
 				textField_3.setEnabled(true);
@@ -351,16 +347,14 @@ public class GestorPedidos {
 			}
 		});
 		
-		btnProveedores.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnProveedores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(frmGestorDePedidos,"Second Window (in development)");
 			}
 		});
 		
-		btnAceptar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(frmGestorDePedidos,"Base de datos modificada");
 				btnAgregar.setEnabled(true);
 				btnEliminar.setEnabled(true);
