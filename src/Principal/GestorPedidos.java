@@ -6,13 +6,16 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
 
 public class GestorPedidos {
 
@@ -53,6 +56,7 @@ public class GestorPedidos {
 	 */
 	private void initialize() {
 		frmGestorDePedidos = new JFrame();
+		frmGestorDePedidos.getContentPane().setEnabled(false);
 		frmGestorDePedidos.setTitle("Gestor de pedidos");
 		frmGestorDePedidos.setResizable(false);
 		frmGestorDePedidos.setBounds(100, 100, 629, 405);
@@ -103,6 +107,7 @@ public class GestorPedidos {
 		frmGestorDePedidos.getContentPane().add(lblFechaDeVencimiento);
 		
 		textField_0 = new JTextField();
+		textField_0.setEnabled(false);
 		textField_0.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_0.setBounds(145, 7, 96, 20);
 		frmGestorDePedidos.getContentPane().add(textField_0);
@@ -120,6 +125,7 @@ public class GestorPedidos {
 		frmGestorDePedidos.getContentPane().add(scrollPane);
 		
 		JTextPane textPane = new JTextPane();
+		textPane.setEnabled(false);
 		scrollPane.setViewportView(textPane);
 		textPane.addKeyListener(new KeyAdapter() {
 	        @Override
@@ -130,6 +136,7 @@ public class GestorPedidos {
 	    });
 		
 		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setBounds(145, 32, 96, 20);
 		frmGestorDePedidos.getContentPane().add(textField_1);
@@ -140,6 +147,7 @@ public class GestorPedidos {
 		frmGestorDePedidos.getContentPane().add(scrollPane_1);
 		
 		JTextPane textPane_1 = new JTextPane();
+		textPane_1.setEnabled(false);
 		scrollPane_1.setViewportView(textPane_1);
 		textPane_1.addKeyListener(new KeyAdapter() {
 	        @Override
@@ -150,6 +158,7 @@ public class GestorPedidos {
 	    });
 		
 		textField_2 = new JTextField();
+		textField_2.setEnabled(false);
 		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_2.setColumns(10);
 		textField_2.setBounds(145, 57, 96, 20);
@@ -163,6 +172,7 @@ public class GestorPedidos {
 	    });
 		
 		textField_3 = new JTextField();
+		textField_3.setEnabled(false);
 		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setColumns(10);
 		textField_3.setBounds(145, 82, 46, 20);
@@ -176,6 +186,7 @@ public class GestorPedidos {
 	    });
 		
 		textField_4 = new JTextField();
+		textField_4.setEnabled(false);
 		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setColumns(10);
 		textField_4.setBounds(145, 107, 96, 20);
@@ -189,6 +200,7 @@ public class GestorPedidos {
 	    });
 		
 		textField_5 = new JTextField();
+		textField_5.setEnabled(false);
 		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_5.setColumns(10);
 		textField_5.setBounds(145, 132, 96, 20);
@@ -202,34 +214,60 @@ public class GestorPedidos {
 	    });
 		
 		textField_6 = new JTextField();
+		textField_6.setEnabled(false);
 		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_6.setColumns(10);
 		textField_6.setBounds(145, 157, 96, 20);
 		frmGestorDePedidos.getContentPane().add(textField_6);
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(25, 207, 100, 23);
+		btnAgregar.setBounds(25, 207, 115, 23);
 		frmGestorDePedidos.getContentPane().add(btnAgregar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(135, 207, 100, 23);
+		btnEliminar.setBounds(150, 207, 115, 23);
 		frmGestorDePedidos.getContentPane().add(btnEliminar);
 		
 		JButton btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(25, 241, 100, 23);
+		btnActualizar.setBounds(25, 241, 115, 23);
 		frmGestorDePedidos.getContentPane().add(btnActualizar);
 		
 		JButton btnProveedores = new JButton("Proveedores");
-		btnProveedores.setBounds(135, 241, 100, 23);
+		btnProveedores.setBounds(150, 241, 115, 23);
 		frmGestorDePedidos.getContentPane().add(btnProveedores);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAceptar.setVisible(false);
+		btnAceptar.setEnabled(false);
 		btnAceptar.setBounds(248, 298, 89, 23);
 		frmGestorDePedidos.getContentPane().add(btnAceptar);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String[] options = new String[2];
+				options[0] = new String("Sí");
+				options[1] = new String("No");
+				int result=JOptionPane.showOptionDialog(frmGestorDePedidos.getContentPane(),"¿Realmente desea salir?","Confirmar salida", 0, JOptionPane.QUESTION_MESSAGE,null,options,null);
+				if(result==0)
+			    {
+			      System.exit(0);          
+			    }
+			}
+		});
 		btnSalir.setBounds(248, 332, 89, 23);
 		frmGestorDePedidos.getContentPane().add(btnSalir);
+		
+		JButton btnComprobar = new JButton("Comprobar");
+		btnComprobar.setVisible(false);
+		btnComprobar.setEnabled(false);
+		btnComprobar.setBounds(503, 286, 100, 23);
+		frmGestorDePedidos.getContentPane().add(btnComprobar);
 		textField_6.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
@@ -245,5 +283,111 @@ public class GestorPedidos {
 	        }
 	    });
 		
+		
+		//Acciones
+		
+		btnAgregar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField_0.setEnabled(true);
+				textField_1.setEnabled(true);
+				textField_2.setEnabled(true);
+				textField_3.setEnabled(true);
+				textField_4.setEnabled(true);
+				textField_5.setEnabled(true);
+				textField_6.setEnabled(true);
+				textPane.setEnabled(true);
+				textPane_1.setEnabled(true);
+				btnAceptar.setVisible(true);
+				btnAceptar.setEnabled(true);
+				btnAgregar.setEnabled(false);
+				btnEliminar.setEnabled(false);
+				btnActualizar.setEnabled(false);
+				//btnProveedores.setEnabled(false);
+			}
+		});
+		
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField_0.setEnabled(true);
+				btnAceptar.setVisible(true);
+				btnAceptar.setEnabled(true);
+				btnAgregar.setEnabled(false);
+				btnEliminar.setEnabled(false);
+				btnActualizar.setEnabled(false);
+				//btnProveedores.setEnabled(false);
+			}
+		});
+		
+		btnActualizar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField_0.setEnabled(true);
+				btnComprobar.setVisible(true);
+				btnComprobar.setEnabled(true);
+				btnEliminar.setEnabled(false);
+				btnAgregar.setEnabled(false);
+				btnActualizar.setEnabled(false);
+				//btnProveedores.setEnabled(false);
+			}
+		});
+		
+		btnComprobar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField_1.setEnabled(true);
+				textField_2.setEnabled(true);
+				textField_3.setEnabled(true);
+				textField_4.setEnabled(true);
+				textField_5.setEnabled(true);
+				textField_6.setEnabled(true);
+				textPane.setEnabled(true);
+				textPane_1.setEnabled(true);
+				btnComprobar.setVisible(false);
+				btnComprobar.setEnabled(false);
+				btnAceptar.setVisible(true);
+				btnAceptar.setEnabled(true);
+			}
+		});
+		
+		btnProveedores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(frmGestorDePedidos,"Second Window (in development)");
+			}
+		});
+		
+		btnAceptar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(frmGestorDePedidos,"Base de datos modificada");
+				btnAgregar.setEnabled(true);
+				btnEliminar.setEnabled(true);
+				btnActualizar.setEnabled(true);
+				btnProveedores.setEnabled(true);
+				btnAceptar.setVisible(false);
+				btnAceptar.setEnabled(false);
+				textField_0.setEnabled(false);
+				textField_1.setEnabled(false);
+				textField_2.setEnabled(false);
+				textField_3.setEnabled(false);
+				textField_4.setEnabled(false);
+				textField_5.setEnabled(false);
+				textField_6.setEnabled(false);
+				textPane.setEnabled(false);
+				textPane_1.setEnabled(false);
+				textField_0.setText(null);
+				textField_1.setText(null);
+				textField_2.setText(null);
+				textField_3.setText(null);
+				textField_4.setText(null);
+				textField_5.setText(null);
+				textField_6.setText(null);
+				textPane.setText(null);
+				textPane_1.setText(null);
+			}
+		});
+
 	}
 }
