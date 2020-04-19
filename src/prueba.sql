@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS ACT_PROV(
     CIF_PROVEEDOR varchar(10),
     RAZ_PROVEEDOR varchar(180),
     NUM_FACTURA int(10) PRIMARY KEY,
-    DES_FACTURA int(10),
+    DES_FACTURA varchar(180),
     BAS_IMPONIBLE varchar(10),
     IVA_IMPORTE int(3),
     TOT_IMPORTE int(10),
