@@ -21,7 +21,6 @@ public class GestorProveedores {
 
 	private JFrame fraGestProv;
 	private JFrame padre;
-	
 	private JTextField textField_0;
 	private JTextField textField_1;
 	private JTextField textField_2;
