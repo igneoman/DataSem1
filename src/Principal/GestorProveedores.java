@@ -2,6 +2,7 @@ package Principal;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -11,6 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class GestorProveedores {
 
@@ -22,6 +27,13 @@ public class GestorProveedores {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	
+	Connection conexion=null;
+	PreparedStatement preparedStatement=null;
+	ResultSet resultSet=null;
+	
+	private boolean crear=true;
+	
 
 	/**
 	 * Launch the application.
@@ -219,6 +231,7 @@ public class GestorProveedores {
 				btnAceptar.setEnabled(true);
 				btnAgregar.setEnabled(false);
 				btnEliminar.setEnabled(false);
+				crear=true;
 			}
 		});
 		
@@ -229,6 +242,7 @@ public class GestorProveedores {
 				btnAceptar.setEnabled(true);
 				btnAgregar.setEnabled(false);
 				btnEliminar.setEnabled(false);
+				crear=false;
 			}
 		});
 		
@@ -250,6 +264,51 @@ public class GestorProveedores {
 				textPane.setText(null);
 				btnAgregar.setEnabled(true);
 				btnEliminar.setEnabled(true);
+				
+				if (crear){
+				
+					try {
+						conexion = Connect.conecta();
+						preparedStatement = conexion.prepareStatement("Insert into PROV_COMP VALUES (?,?,?,?,?,?)");
+						preparedStatement.setString(1, textField_0.getText());
+						preparedStatement.setString(3, textField_1.getText());
+						preparedStatement.setString(4, textField_2.getText());
+						preparedStatement.setString(5, textField_3.getText());
+						preparedStatement.setString(6, textField_4.getText());
+						preparedStatement.setString(2, textPane.getText());
+						
+						int ok = preparedStatement.executeUpdate();
+						if (ok > 0) {
+							JOptionPane.showMessageDialog(null, "Dato añadido");
+							conexion.close();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Error");
+						}
+						
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				
+				}
+				else {
+					try {
+						conexion = Connect.conecta();
+						preparedStatement = conexion.prepareStatement("Delete from PROV_COMP where CIF_PROVEEDOR=?");
+						preparedStatement.setString(1, textField_0.getText());
+						int ok = preparedStatement.executeUpdate();
+						if (ok > 0) {
+							JOptionPane.showMessageDialog(null, "Dato añadido");
+							conexion.close();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Error");
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
 			}
 		});
 		
