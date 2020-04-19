@@ -3,6 +3,10 @@ package Principal;
 import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +30,12 @@ public class GestorPedidos {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	
+	Connection conexion=null;
+	PreparedStatement preparedStatement=null;
+	ResultSet resultSet=null;
+	
+	private int respuesta=0;
 
 	/**
 	 * Launch the application.
@@ -306,6 +316,7 @@ public class GestorPedidos {
 				btnEliminar.setEnabled(false);
 				btnActualizar.setEnabled(false);
 				//btnProveedores.setEnabled(false);
+				respuesta=0;
 			}
 		});
 		
@@ -318,35 +329,107 @@ public class GestorPedidos {
 				btnEliminar.setEnabled(false);
 				btnActualizar.setEnabled(false);
 				//btnProveedores.setEnabled(false);
+				respuesta=1;
 			}
 		});
 		
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField_0.setEnabled(true);
+				textField_1.setEnabled(true);
 				btnComprobar.setVisible(true);
 				btnComprobar.setEnabled(true);
 				btnEliminar.setEnabled(false);
 				btnAgregar.setEnabled(false);
 				btnActualizar.setEnabled(false);
+				respuesta=2;
 				//btnProveedores.setEnabled(false);
 			}
 		});
 		
 		btnComprobar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField_1.setEnabled(true);
-				textField_2.setEnabled(true);
-				textField_3.setEnabled(true);
-				textField_4.setEnabled(true);
-				textField_5.setEnabled(true);
-				textField_6.setEnabled(true);
-				textPane.setEnabled(true);
-				textPane_1.setEnabled(true);
-				btnComprobar.setVisible(false);
-				btnComprobar.setEnabled(false);
-				btnAceptar.setVisible(true);
-				btnAceptar.setEnabled(true);
+				
+				try {
+					conexion = Connect.conecta();
+					
+					PreparedStatement [] stat=new PreparedStatement[8];
+					ResultSet [] set=new ResultSet[8];
+					
+					stat[0] = conexion.prepareStatement("Select CIF_PROVEEDOR from ACT_PROV where NUM_FACTURA = ?");
+					stat[1] = conexion.prepareStatement("Select RAZ_PROVEEDOR from ACT_PROV where NUM_FACTURA = ?");
+					stat[2] = conexion.prepareStatement("Select DES_FACTURA from ACT_PROV where NUM_FACTURA = ?");
+					stat[3] = conexion.prepareStatement("Select BAS_IMPONIBLE from ACT_PROV where NUM_FACTURA = ?");
+					stat[4] = conexion.prepareStatement("Select IVA_IMPORTE from ACT_PROV where NUM_FACTURA = ?");
+					stat[5] = conexion.prepareStatement("Select TOT_IMPORTE from ACT_PROV where NUM_FACTURA = ?");
+					stat[6] = conexion.prepareStatement("Select FEC_FACTURA from ACT_PROV where NUM_FACTURA = ?");
+					stat[7] = conexion.prepareStatement("Select FEC_VENCIMIENTO from ACT_PROV where NUM_FACTURA = ?");
+					
+					for(int i =0;i<=8;i++) {
+						stat[i].setInt(3, Integer.valueOf(textField_1.getText()));
+						//set[i]=stat[i].executeQuery();
+					}
+					
+					if (set[0].next()) {
+						textField_0.setText(set[0].getString(0));
+						textPane.setText(set[1].getString(1));
+						textPane_1.setText(set[2].getString(3));
+						textField_2.setText(set[3].getString(0));
+						textField_3.setText(set[4].getString(0));
+						textField_4.setText(set[5].getString(0));
+						textField_5.setText(set[6].getString(0));
+						textField_6.setText(set[7].getString(0));
+						
+						textField_0.setEnabled(true);
+						textField_2.setEnabled(true);
+						textField_3.setEnabled(true);
+						textField_4.setEnabled(true);
+						textField_5.setEnabled(true);
+						textField_6.setEnabled(true);
+						textPane.setEnabled(true);
+						textPane_1.setEnabled(true);
+						btnComprobar.setVisible(false);
+						btnComprobar.setEnabled(false);
+						btnAceptar.setVisible(true);
+						btnAceptar.setEnabled(true);
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No encontrado");
+						btnComprobar.setVisible(false);
+						btnComprobar.setEnabled(false);
+						//Codigo a refactorizar
+						btnAgregar.setEnabled(true);
+						btnEliminar.setEnabled(true);
+						btnActualizar.setEnabled(true);
+						btnProveedores.setEnabled(true);
+						btnAceptar.setVisible(false);
+						btnAceptar.setEnabled(false);
+						textField_0.setEnabled(false);
+						textField_1.setEnabled(false);
+						textField_2.setEnabled(false);
+						textField_3.setEnabled(false);
+						textField_4.setEnabled(false);
+						textField_5.setEnabled(false);
+						textField_6.setEnabled(false);
+						textPane.setEnabled(false);
+						textPane_1.setEnabled(false);
+						textField_0.setText(null);
+						textField_1.setText(null);
+						textField_2.setText(null);
+						textField_3.setText(null);
+						textField_4.setText(null);
+						textField_5.setText(null);
+						textField_6.setText(null);
+						textPane.setText(null);
+						textPane_1.setText(null);
+					}
+					
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		
@@ -387,6 +470,80 @@ public class GestorPedidos {
 				textField_6.setText(null);
 				textPane.setText(null);
 				textPane_1.setText(null);
+				
+				
+				if (respuesta==0){
+					try {
+						conexion = Connect.conecta();
+						preparedStatement = conexion.prepareStatement("Insert into ACT_PROV VALUES (?,?,?,?,?,?,?,?,?)");
+						preparedStatement.setString(1, textField_0.getText());
+						preparedStatement.setString(2, textPane.getText());
+						preparedStatement.setInt(3, Integer.valueOf(textField_1.getText()));
+						preparedStatement.setString(4, textPane_1.getText());
+						preparedStatement.setString(5, textField_2.getText());
+						preparedStatement.setInt(6, Integer.valueOf(textField_3.getText()));
+						preparedStatement.setInt(7, Integer.valueOf(textField_4.getText()));
+						preparedStatement.setString(8, textField_5.getText());
+						preparedStatement.setString(9, textField_6.getText());
+						
+						int ok = preparedStatement.executeUpdate();
+						if (ok > 0) {
+							JOptionPane.showMessageDialog(null, "Dato añadido");
+							conexion.close();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Error");
+						}
+						
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+				else if (respuesta==1) {
+					try {
+						conexion = Connect.conecta();
+						preparedStatement = conexion.prepareStatement("Delete from ACT_PROV where NUM_FACTURA=?");
+						preparedStatement.setString(1, textField_1.getText());
+						int ok = preparedStatement.executeUpdate();
+						if (ok > 0) {
+							JOptionPane.showMessageDialog(null, "Dato añadido");
+							conexion.close();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Error");
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+				else {
+					try {
+						conexion = Connect.conecta();
+						preparedStatement = conexion.prepareStatement("Update ACT_PROV Set CIF_PROVEEDOR=?,"
+								+ " RAZ_PROVEEDOR=?, DES_FACTURA=?, BAS_IMPONIBLE=?, IVA_IMPORTE=?, TOT_IMPORTE=?, FEC_FACTURA=?,"
+								+ "FEC_VENCIMIENTO='");
+						preparedStatement.setString(1, textField_0.getText());
+						preparedStatement.setString(2, textPane.getText());
+						preparedStatement.setString(3, textPane_1.getText());
+						preparedStatement.setString(4, textField_2.getText());
+						preparedStatement.setInt(5, Integer.valueOf(textField_3.getText()));
+						preparedStatement.setInt(6, Integer.valueOf(textField_4.getText()));
+						preparedStatement.setString(7, textField_5.getText());
+						preparedStatement.setString(8, textField_6.getText());
+						
+						int ok = preparedStatement.executeUpdate();
+						if (ok > 0) {
+							JOptionPane.showMessageDialog(null, "Dato añadido");
+							conexion.close();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Error");
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
 			}
 		});
 
