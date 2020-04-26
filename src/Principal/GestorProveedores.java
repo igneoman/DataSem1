@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -250,22 +251,6 @@ public class GestorProveedores {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnAceptar.setVisible(false);
-				btnAceptar.setEnabled(false);
-				textField_0.setEnabled(false);
-				textField_1.setEnabled(false);
-				textField_2.setEnabled(false);
-				textField_3.setEnabled(false);
-				textField_4.setEnabled(false);
-				textPane.setEnabled(false);
-				textField_0.setText(null);
-				textField_1.setText(null);
-				textField_2.setText(null);
-				textField_3.setText(null);
-				textField_4.setText(null);
-				textPane.setText(null);
-				btnAgregar.setEnabled(true);
-				btnEliminar.setEnabled(true);
 				
 				if (crear){
 				
@@ -284,6 +269,9 @@ public class GestorProveedores {
 							JOptionPane.showMessageDialog(null, "Dato agregado");
 							conexion.close();
 						}
+						else if(conexion==null) {
+							JOptionPane.showMessageDialog(null, "Error agregar, valor nulo");
+						}
 						else {
 							JOptionPane.showMessageDialog(null, "Error agregar");
 						}
@@ -296,12 +284,17 @@ public class GestorProveedores {
 				else {
 					try {
 						conexion = Connect.conecta();
+						//conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb", "root", "");
 						preparedStatement = conexion.prepareStatement("Delete from PROV_COMP where CIF_PROVEEDOR=?");
 						preparedStatement.setString(1, textField_0.getText());
+						//preparedStatement.setString(1, "1111");
 						int ok = preparedStatement.executeUpdate();
 						if (ok > 0) {
 							JOptionPane.showMessageDialog(null, "Dato quitado");
 							conexion.close();
+						}
+						else if(conexion==null) {
+							JOptionPane.showMessageDialog(null, "Error eliminar, valor nulo");
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Error eliminar");
@@ -310,6 +303,23 @@ public class GestorProveedores {
 						e1.printStackTrace();
 					}
 				}
+				
+				btnAceptar.setVisible(false);
+				btnAceptar.setEnabled(false);
+				textField_0.setEnabled(false);
+				textField_1.setEnabled(false);
+				textField_2.setEnabled(false);
+				textField_3.setEnabled(false);
+				textField_4.setEnabled(false);
+				textPane.setEnabled(false);
+				textField_0.setText(null);
+				textField_1.setText(null);
+				textField_2.setText(null);
+				textField_3.setText(null);
+				textField_4.setText(null);
+				textPane.setText(null);
+				btnAgregar.setEnabled(true);
+				btnEliminar.setEnabled(true);
 				
 			}
 		});
