@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class Connect {
 
 	/*Por ahora en local, pero cuando pueda usaré 
@@ -12,10 +13,18 @@ public class Connect {
 	private static String user = "root";
 	private static String pass = "";
 	
-	public static Connection conecta() throws SQLException {
-		Connection conexion;
-		conexion = DriverManager.getConnection(url,user,pass);
-		return conexion;
+	public static Connection conecta(){
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conexion;
+			conexion = DriverManager.getConnection(url,user,pass);
+			return conexion;
+		}catch(SQLException e){
+	        System.out.println("Error sql: "+e.getMessage());
+	    }catch (Exception e){
+	        System.out.println("Error: "+e.getMessage());
+	    }
+		return null;
 	}
 
 }
