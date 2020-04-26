@@ -446,30 +446,6 @@ public class GestorPedidos {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(frmGestorDePedidos,"Base de datos modificada");
-				btnAgregar.setEnabled(true);
-				btnEliminar.setEnabled(true);
-				btnActualizar.setEnabled(true);
-				btnProveedores.setEnabled(true);
-				btnAceptar.setVisible(false);
-				btnAceptar.setEnabled(false);
-				textField_0.setEnabled(false);
-				textField_1.setEnabled(false);
-				textField_2.setEnabled(false);
-				textField_3.setEnabled(false);
-				textField_4.setEnabled(false);
-				textField_5.setEnabled(false);
-				textField_6.setEnabled(false);
-				textPane.setEnabled(false);
-				textPane_1.setEnabled(false);
-				textField_0.setText(null);
-				textField_1.setText(null);
-				textField_2.setText(null);
-				textField_3.setText(null);
-				textField_4.setText(null);
-				textField_5.setText(null);
-				textField_6.setText(null);
-				textPane.setText(null);
-				textPane_1.setText(null);
 				
 				
 				if (respuesta==0){
@@ -543,6 +519,31 @@ public class GestorPedidos {
 						e1.printStackTrace();
 					}
 				}
+				
+				btnAgregar.setEnabled(true);
+				btnEliminar.setEnabled(true);
+				btnActualizar.setEnabled(true);
+				btnProveedores.setEnabled(true);
+				btnAceptar.setVisible(false);
+				btnAceptar.setEnabled(false);
+				textField_0.setEnabled(false);
+				textField_1.setEnabled(false);
+				textField_2.setEnabled(false);
+				textField_3.setEnabled(false);
+				textField_4.setEnabled(false);
+				textField_5.setEnabled(false);
+				textField_6.setEnabled(false);
+				textPane.setEnabled(false);
+				textPane_1.setEnabled(false);
+				textField_0.setText(null);
+				textField_1.setText(null);
+				textField_2.setText(null);
+				textField_3.setText(null);
+				textField_4.setText(null);
+				textField_5.setText(null);
+				textField_6.setText(null);
+				textPane.setText(null);
+				textPane_1.setText(null);
 				
 			}
 		});
