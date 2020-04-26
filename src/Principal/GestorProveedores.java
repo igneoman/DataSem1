@@ -81,42 +81,43 @@ public class GestorProveedores {
 	 */
 	private void initialize() {
 		fraGestProv = new JFrame();
+		fraGestProv.setResizable(false);
 		fraGestProv.setTitle("Gestor proveedores");
-		fraGestProv.setBounds(100, 100, 450, 300);
+		fraGestProv.setBounds(100, 100, 356, 424);
 		fraGestProv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fraGestProv.getContentPane().setLayout(null);
 		
 		JLabel label_0 = new JLabel("CIF del proveedor:");
 		label_0.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_0.setBounds(10, 11, 170, 14);
+		label_0.setBounds(10, 60, 170, 14);
 		fraGestProv.getContentPane().add(label_0);
 		
 		JLabel label_2 = new JLabel("Registro notarial:");
 		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_2.setBounds(10, 36, 170, 14);
+		label_2.setBounds(10, 85, 170, 14);
 		fraGestProv.getContentPane().add(label_2);
 		
 		JLabel label_3 = new JLabel("Cod. ressponsabilidad civil:");
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_3.setBounds(10, 61, 170, 14);
+		label_3.setBounds(10, 110, 170, 14);
 		fraGestProv.getContentPane().add(label_3);
 		
 		JLabel label_4 = new JLabel("Importe seguro R.C.:");
 		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setBounds(10, 86, 170, 14);
+		label_4.setBounds(10, 135, 170, 14);
 		fraGestProv.getContentPane().add(label_4);
 		
 		JLabel label_1 = new JLabel("Raz\u00F3n Social del Proveedor:");
-		label_1.setBounds(10, 137, 192, 14);
+		label_1.setBounds(10, 186, 192, 14);
 		fraGestProv.getContentPane().add(label_1);
 		
 		JLabel lblFecha = new JLabel("Fecha homologaci\u00F3n:");
 		lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFecha.setBounds(10, 111, 170, 14);
+		lblFecha.setBounds(10, 160, 170, 14);
 		fraGestProv.getContentPane().add(lblFecha);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 162, 320, 88);
+		scrollPane.setBounds(10, 211, 320, 88);
 		fraGestProv.getContentPane().add(scrollPane);
 		
 		JTextPane textPane = new JTextPane();
@@ -134,7 +135,7 @@ public class GestorProveedores {
 		textField_0.setEnabled(false);
 		textField_0.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_0.setColumns(10);
-		textField_0.setBounds(190, 8, 96, 20);
+		textField_0.setBounds(190, 57, 96, 20);
 		textField_0.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
@@ -148,7 +149,7 @@ public class GestorProveedores {
 		textField_1.setEnabled(false);
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setColumns(10);
-		textField_1.setBounds(190, 33, 96, 20);
+		textField_1.setBounds(190, 82, 96, 20);
 		textField_1.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
@@ -162,7 +163,7 @@ public class GestorProveedores {
 		textField_2.setEnabled(false);
 		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_2.setColumns(10);
-		textField_2.setBounds(190, 58, 96, 20);
+		textField_2.setBounds(190, 107, 96, 20);
 		textField_2.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
@@ -176,7 +177,7 @@ public class GestorProveedores {
 		textField_3.setEnabled(false);
 		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setColumns(10);
-		textField_3.setBounds(190, 83, 96, 20);
+		textField_3.setBounds(190, 132, 96, 20);
 		textField_3.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
@@ -190,7 +191,7 @@ public class GestorProveedores {
 		textField_4.setEnabled(false);
 		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setColumns(10);
-		textField_4.setBounds(190, 108, 96, 20);
+		textField_4.setBounds(190, 157, 96, 20);
 		textField_4.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
@@ -202,19 +203,19 @@ public class GestorProveedores {
 		
 		JButton btnAgregar = new JButton("Agregar");
 		
-		btnAgregar.setBounds(335, 7, 89, 23);
+		btnAgregar.setBounds(30, 11, 89, 23);
 		fraGestProv.getContentPane().add(btnAgregar);
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(335, 36, 89, 23);
+		btnEliminar.setBounds(222, 11, 89, 23);
 		fraGestProv.getContentPane().add(btnEliminar);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.setBounds(340, 227, 89, 23);
+		btnSalir.setBounds(126, 351, 89, 23);
 		fraGestProv.getContentPane().add(btnSalir);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setVisible(false);
-		btnAceptar.setBounds(335, 133, 89, 23);
+		btnAceptar.setBounds(126, 310, 89, 23);
 		fraGestProv.getContentPane().add(btnAceptar);
 		
 		
@@ -280,11 +281,11 @@ public class GestorProveedores {
 						
 						int ok = preparedStatement.executeUpdate();
 						if (ok > 0) {
-							JOptionPane.showMessageDialog(null, "Dato añadido");
+							JOptionPane.showMessageDialog(null, "Dato agregado");
 							conexion.close();
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "Error");
+							JOptionPane.showMessageDialog(null, "Error agregar");
 						}
 						
 					} catch (SQLException e1) {
@@ -299,11 +300,11 @@ public class GestorProveedores {
 						preparedStatement.setString(1, textField_0.getText());
 						int ok = preparedStatement.executeUpdate();
 						if (ok > 0) {
-							JOptionPane.showMessageDialog(null, "Dato añadido");
+							JOptionPane.showMessageDialog(null, "Dato quitado");
 							conexion.close();
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "Error");
+							JOptionPane.showMessageDialog(null, "Error eliminar");
 						}
 					} catch (SQLException e1) {
 						e1.printStackTrace();
