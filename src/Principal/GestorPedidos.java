@@ -6,7 +6,9 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -268,6 +270,79 @@ public class GestorPedidos {
 		btnComprobar.setEnabled(false);
 		btnComprobar.setBounds(503, 286, 100, 23);
 		frmGestorDePedidos.getContentPane().add(btnComprobar);
+		
+		JButton btnJson = new JButton("JSON");
+		btnJson.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Refactorizar
+				try {
+					String json="";
+					json+="{"+"ACT_PROV"+" [\n";
+					Statement jsond = conexion.createStatement();
+					jsond.execute("use "+"empresadb");
+					String jsonr = "Select * FROM " + "ACT_PROV";
+					ResultSet jsonsr = jsond.executeQuery(jsonr);
+					ResultSetMetaData coldate = jsonsr.getMetaData();
+					
+					while (jsonsr.next()) {
+						json+="{";
+						for(int i = 0; i < coldate.getColumnCount();i++) {
+							json+="\""+coldate.getColumnName(i)+"\":\""+jsonsr.getObject(i+1)+"\".";
+							if(i< coldate.getColumnCount()-1)json+=",";
+						}
+						json+="},\n";
+						
+					}
+					json+="] }";
+					
+					//Pendiente de crear un archivo
+					System.out.println(json);
+					
+				}
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnJson.setBounds(25, 275, 89, 23);
+		frmGestorDePedidos.getContentPane().add(btnJson);
+		
+		JButton btnXml = new JButton("XML");
+		btnXml.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Refactorizar
+				try {
+					String xml="";
+					xml+="<"+"ACT_PROV"+">\n";
+					Statement xmld = conexion.createStatement();
+					xmld.execute("use "+"empresadb");
+					String xmlr = "Select * FROM " + "ACT_PROV";
+					ResultSet xmlsr = xmld.executeQuery(xmlr);
+					ResultSetMetaData coldate = xmlsr.getMetaData();
+					
+					while (xmlsr.next()) {
+						xml+="\t<"+"compra"+"\n>";
+						for(int i = 0; i < coldate.getColumnCount();i++) {
+							xml+="\t\t<"+coldate.getColumnName(i)+">"+xmlsr.getObject(i+1)+"</"+coldate.getColumnName(i)+">\n";
+						}
+						xml+="\t<"+"compra"+"\n>";
+						
+					}
+					xml+="<"+"ACT_PROV"+">\n";
+					
+					//Pendiente de crear un archivo
+					System.out.println(xml);
+					
+					
+					
+				}
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnXml.setBounds(25, 308, 89, 23);
+		frmGestorDePedidos.getContentPane().add(btnXml);
 		textField_6.addKeyListener(new KeyAdapter() {
 	        @Override
 	        public void keyTyped(KeyEvent e) {
