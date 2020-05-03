@@ -3,6 +3,8 @@ package Principal;
 import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,6 +67,30 @@ public class GestorPedidos {
 	public void Return() {
 		frmGestorDePedidos.setVisible(false);
 	}
+	
+	
+	public static void newFile(String entrada, boolean tipo) {
+		try {
+			
+			File myObj=null;
+	    
+			if (tipo==true) {
+				myObj = new File("datos.json");
+			}
+	    	else {
+	    		myObj = new File("datos.xml");
+	    	}
+			if (myObj.createNewFile()) {
+				System.out.println("File created: " + myObj.getName());
+			} 
+			else {
+	        System.out.println("File already exists.");
+			}
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
+	  }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -295,8 +321,8 @@ public class GestorPedidos {
 					}
 					json+="] }";
 					
-					//Pendiente de crear un archivo
-					System.out.println(json);
+					//System.out.println(json);
+					newFile(json,true);
 					
 				}
 				catch (SQLException ex) {
@@ -330,8 +356,8 @@ public class GestorPedidos {
 					}
 					xml+="<"+"ACT_PROV"+">\n";
 					
-					//Pendiente de crear un archivo
-					System.out.println(xml);
+					//System.out.println(xml);
+					newFile(xml,false);
 					
 					
 					
