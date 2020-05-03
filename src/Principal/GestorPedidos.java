@@ -4,8 +4,10 @@ import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -82,6 +84,9 @@ public class GestorPedidos {
 	    	}
 			if (myObj.createNewFile()) {
 				System.out.println("File created: " + myObj.getName());
+				FileWriter wri = new FileWriter(myObj);
+				wri.write(entrada);
+				wri.close();
 			} 
 			else {
 	        System.out.println("File already exists.");
@@ -303,8 +308,9 @@ public class GestorPedidos {
 				//Refactorizar
 				try {
 					String json="";
-					json+="{"+"ACT_PROV"+" [\n";
-					Statement jsond = conexion.createStatement();
+					json+="{"+"\"ACT_PROV\":"+" [\n";
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
+					Statement jsond = con.createStatement();
 					jsond.execute("use "+"empresadb");
 					String jsonr = "Select * FROM " + "ACT_PROV";
 					ResultSet jsonsr = jsond.executeQuery(jsonr);
@@ -313,7 +319,7 @@ public class GestorPedidos {
 					while (jsonsr.next()) {
 						json+="{";
 						for(int i = 0; i < coldate.getColumnCount();i++) {
-							json+="\""+coldate.getColumnName(i)+"\":\""+jsonsr.getObject(i+1)+"\".";
+							json+="\""+coldate.getColumnName(i+1)+"\":\""+jsonsr.getObject(i+1)+"\"";
 							if(i< coldate.getColumnCount()-1)json+=",";
 						}
 						json+="},\n";
@@ -340,18 +346,19 @@ public class GestorPedidos {
 				try {
 					String xml="";
 					xml+="<"+"ACT_PROV"+">\n";
-					Statement xmld = conexion.createStatement();
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
+					Statement xmld = con.createStatement();
 					xmld.execute("use "+"empresadb");
 					String xmlr = "Select * FROM " + "ACT_PROV";
 					ResultSet xmlsr = xmld.executeQuery(xmlr);
 					ResultSetMetaData coldate = xmlsr.getMetaData();
 					
 					while (xmlsr.next()) {
-						xml+="\t<"+"compra"+"\n>";
+						xml+="\t<"+"compra"+">\n";
 						for(int i = 0; i < coldate.getColumnCount();i++) {
-							xml+="\t\t<"+coldate.getColumnName(i)+">"+xmlsr.getObject(i+1)+"</"+coldate.getColumnName(i)+">\n";
+							xml+="\t\t<"+coldate.getColumnName(i+1)+">"+xmlsr.getObject(i+1)+"</"+coldate.getColumnName(i+1)+">\n";
 						}
-						xml+="\t<"+"compra"+"\n>";
+						xml+="\t<"+"compra"+">\n";
 						
 					}
 					xml+="<"+"ACT_PROV"+">\n";
@@ -364,6 +371,10 @@ public class GestorPedidos {
 				}
 				catch (SQLException ex) {
 					ex.printStackTrace();
+				}
+				catch(Exception e1)
+				{
+				    e1.printStackTrace(); //connection failed
 				}
 			}
 		});
