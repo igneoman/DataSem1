@@ -219,6 +219,14 @@ public class GestorProveedores {
 		btnAceptar.setBounds(126, 310, 89, 23);
 		fraGestProv.getContentPane().add(btnAceptar);
 		
+		JButton btnJson = new JButton("JSON");
+		btnJson.setBounds(253, 310, 75, 23);
+		fraGestProv.getContentPane().add(btnJson);
+		
+		JButton btnXml = new JButton("XML");
+		btnXml.setBounds(264, 351, 66, 23);
+		fraGestProv.getContentPane().add(btnXml);
+		
 		
 		//Acciones
 		
@@ -331,5 +339,4 @@ public class GestorProveedores {
 			}
 		});
 	}
-
 }
