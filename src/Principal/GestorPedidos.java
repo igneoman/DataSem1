@@ -308,11 +308,11 @@ public class GestorPedidos {
 				//Refactorizar
 				try {
 					String json="";
-					json+="{"+"\"ACT_PROV\":"+" [\n";
+					json+="{"+"\"act_prov\":"+" [\n";
 					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
 					Statement jsond = con.createStatement();
 					jsond.execute("use "+"empresadb");
-					String jsonr = "Select * FROM " + "ACT_PROV";
+					String jsonr = "Select * FROM " + "act_prov";
 					ResultSet jsonsr = jsond.executeQuery(jsonr);
 					ResultSetMetaData coldate = jsonsr.getMetaData();
 					
@@ -345,11 +345,11 @@ public class GestorPedidos {
 				//Refactorizar
 				try {
 					String xml="";
-					xml+="<"+"ACT_PROV"+">\n";
+					xml+="<"+"act_prov"+">\n";
 					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
 					Statement xmld = con.createStatement();
 					xmld.execute("use "+"empresadb");
-					String xmlr = "Select * FROM " + "ACT_PROV";
+					String xmlr = "Select * FROM " + "act_prov";
 					ResultSet xmlsr = xmld.executeQuery(xmlr);
 					ResultSetMetaData coldate = xmlsr.getMetaData();
 					
@@ -361,7 +361,7 @@ public class GestorPedidos {
 						xml+="\t<"+"compra"+">\n";
 						
 					}
-					xml+="<"+"ACT_PROV"+">\n";
+					xml+="<"+"act_prov"+">\n";
 					
 					//System.out.println(xml);
 					newFile(xml,false);
@@ -467,14 +467,14 @@ public class GestorPedidos {
 					PreparedStatement [] stat=new PreparedStatement[8];
 					ResultSet [] set=new ResultSet[8];
 					
-					stat[0] = conexion.prepareStatement("Select CIF_PROVEEDOR from ACT_PROV where NUM_FACTURA = ?");
-					stat[1] = conexion.prepareStatement("Select RAZ_PROVEEDOR from ACT_PROV where NUM_FACTURA = ?");
-					stat[2] = conexion.prepareStatement("Select DES_FACTURA from ACT_PROV where NUM_FACTURA = ?");
-					stat[3] = conexion.prepareStatement("Select BAS_IMPONIBLE from ACT_PROV where NUM_FACTURA = ?");
-					stat[4] = conexion.prepareStatement("Select IVA_IMPORTE from ACT_PROV where NUM_FACTURA = ?");
-					stat[5] = conexion.prepareStatement("Select TOT_IMPORTE from ACT_PROV where NUM_FACTURA = ?");
-					stat[6] = conexion.prepareStatement("Select FEC_FACTURA from ACT_PROV where NUM_FACTURA = ?");
-					stat[7] = conexion.prepareStatement("Select FEC_VENCIMIENTO from ACT_PROV where NUM_FACTURA = ?");
+					stat[0] = conexion.prepareStatement("Select CIF_PROVEEDOR from act_prov where NUM_FACTURA = ?");
+					stat[1] = conexion.prepareStatement("Select RAZ_PROVEEDOR from act_prov where NUM_FACTURA = ?");
+					stat[2] = conexion.prepareStatement("Select DES_FACTURA from act_prov where NUM_FACTURA = ?");
+					stat[3] = conexion.prepareStatement("Select BAS_IMPONIBLE from act_prov where NUM_FACTURA = ?");
+					stat[4] = conexion.prepareStatement("Select IVA_IMPORTE from act_prov where NUM_FACTURA = ?");
+					stat[5] = conexion.prepareStatement("Select TOT_IMPORTE from act_prov where NUM_FACTURA = ?");
+					stat[6] = conexion.prepareStatement("Select FEC_FACTURA from act_prov where NUM_FACTURA = ?");
+					stat[7] = conexion.prepareStatement("Select FEC_VENCIMIENTO from act_prov where NUM_FACTURA = ?");
 					
 					for(int i =0;i<=8;i++) {
 						stat[i].setInt(3, Integer.valueOf(textField_1.getText()));
@@ -563,7 +563,7 @@ public class GestorPedidos {
 				if (respuesta==0){
 					try {
 						conexion = Connect.conecta();
-						preparedStatement = conexion.prepareStatement("Insert into ACT_PROV VALUES (?,?,?,?,?,?,?,?,?)");
+						preparedStatement = conexion.prepareStatement("Insert into act_prov VALUES (?,?,?,?,?,?,?,?,?)");
 						preparedStatement.setString(1, textField_0.getText());
 						preparedStatement.setString(2, textPane.getText());
 						preparedStatement.setInt(3, Integer.valueOf(textField_1.getText()));
@@ -590,7 +590,7 @@ public class GestorPedidos {
 				else if (respuesta==1) {
 					try {
 						conexion = Connect.conecta();
-						preparedStatement = conexion.prepareStatement("Delete from ACT_PROV where NUM_FACTURA=?");
+						preparedStatement = conexion.prepareStatement("Delete from act_prov where NUM_FACTURA=?");
 						preparedStatement.setString(1, textField_1.getText());
 						int ok = preparedStatement.executeUpdate();
 						if (ok > 0) {
@@ -607,7 +607,7 @@ public class GestorPedidos {
 				else {
 					try {
 						conexion = Connect.conecta();
-						preparedStatement = conexion.prepareStatement("Update ACT_PROV Set CIF_PROVEEDOR=?,"
+						preparedStatement = conexion.prepareStatement("Update act_prov Set CIF_PROVEEDOR=?,"
 								+ " RAZ_PROVEEDOR=?, DES_FACTURA=?, BAS_IMPONIBLE=?, IVA_IMPORTE=?, TOT_IMPORTE=?, FEC_FACTURA=?,"
 								+ "FEC_VENCIMIENTO='");
 						preparedStatement.setString(1, textField_0.getText());

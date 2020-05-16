@@ -259,7 +259,7 @@ public class GestorProveedores {
 					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
 					Statement jsond = con.createStatement();
 					jsond.execute("use "+"empresadb");
-					String jsonr = "Select * FROM " + "PROV_COMP";
+					String jsonr = "Select * FROM " + "prov_comp";
 					ResultSet jsonsr = jsond.executeQuery(jsonr);
 					ResultSetMetaData coldate = jsonsr.getMetaData();
 					
@@ -295,7 +295,7 @@ public class GestorProveedores {
 					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
 					Statement xmld = con.createStatement();
 					xmld.execute("use "+"empresadb");
-					String xmlr = "Select * FROM " + "PROV_COMP";
+					String xmlr = "Select * FROM " + "prov_comp";
 					ResultSet xmlsr = xmld.executeQuery(xmlr);
 					ResultSetMetaData coldate = xmlsr.getMetaData();
 					
@@ -307,7 +307,7 @@ public class GestorProveedores {
 						xml+="\t<"+"proveedor"+">\n";
 						
 					}
-					xml+="<"+"PROV_COMP"+">\n";
+					xml+="<"+"prov_comp"+">\n";
 					
 					//System.out.println(xml);
 					newFile(xml,false);
@@ -364,7 +364,7 @@ public class GestorProveedores {
 				
 					try {
 						conexion = Connect.conecta();
-						preparedStatement = conexion.prepareStatement("Insert into PROV_COMP VALUES (?,?,?,?,?,?)");
+						preparedStatement = conexion.prepareStatement("Insert into prov_comp VALUES (?,?,?,?,?,?)");
 						preparedStatement.setString(1, textField_0.getText());
 						preparedStatement.setString(3, textField_1.getText());
 						preparedStatement.setString(4, textField_2.getText());
@@ -393,7 +393,7 @@ public class GestorProveedores {
 					try {
 						conexion = Connect.conecta();
 						//conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb", "root", "");
-						preparedStatement = conexion.prepareStatement("Delete from PROV_COMP where CIF_PROVEEDOR=?");
+						preparedStatement = conexion.prepareStatement("Delete from prov_comp where CIF_PROVEEDOR=?");
 						preparedStatement.setString(1, textField_0.getText());
 						//preparedStatement.setString(1, "1111");
 						int ok = preparedStatement.executeUpdate();
