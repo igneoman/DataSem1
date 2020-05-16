@@ -84,7 +84,7 @@ public class GestorProveedores {
 		fraGestProv = new JFrame();
 		fraGestProv.setResizable(false);
 		fraGestProv.setTitle("Gestor proveedores");
-		fraGestProv.setBounds(100, 100, 356, 424);
+		fraGestProv.setBounds(100, 100, 356, 450);
 		fraGestProv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fraGestProv.getContentPane().setLayout(null);
 		
@@ -211,20 +211,20 @@ public class GestorProveedores {
 		fraGestProv.getContentPane().add(btnEliminar);
 		
 		JButton btnSalir = new JButton("Salir");
-		btnSalir.setBounds(126, 351, 89, 23);
+		btnSalir.setBounds(126, 387, 89, 23);
 		fraGestProv.getContentPane().add(btnSalir);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setVisible(false);
-		btnAceptar.setBounds(126, 310, 89, 23);
+		btnAceptar.setBounds(126, 353, 89, 23);
 		fraGestProv.getContentPane().add(btnAceptar);
 		
 		JButton btnJson = new JButton("JSON");
-		btnJson.setBounds(253, 310, 75, 23);
+		btnJson.setBounds(87, 310, 75, 23);
 		fraGestProv.getContentPane().add(btnJson);
 		
 		JButton btnXml = new JButton("XML");
-		btnXml.setBounds(264, 351, 66, 23);
+		btnXml.setBounds(172, 310, 77, 23);
 		fraGestProv.getContentPane().add(btnXml);
 		
 		
