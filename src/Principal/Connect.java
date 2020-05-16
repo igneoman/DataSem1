@@ -13,11 +13,12 @@ public class Connect {
 	/*private static String url = "jdbc:mysql://localhost:3306/empresadb";
 	private static String user = "root";
 	private static String pass = "";*/
-	//En remoto
+	//En remoto acceder con usuario y contraseña aquí:
+	//https://www.db4free.net/phpMyAdmin/index.php
 	private static String url = "jdbc:mysql://db4free.net:3306/empresadb9";
 	private static String user = "tester12309";
 	private static String pass = "Testear123";
-	
+
 	public static Connection conecta(){
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
