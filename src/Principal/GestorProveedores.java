@@ -14,11 +14,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class GestorProveedores {
 
@@ -76,6 +81,32 @@ public class GestorProveedores {
 	public void getFather(JFrame frmGestorDePedidos) {
 		padre=frmGestorDePedidos;
 	}
+	
+	public static void newFile(String entrada, boolean tipo) {
+		try {
+			
+			File myObj=null;
+	    
+			if (tipo==true) {
+				myObj = new File("datos.json");
+			}
+	    	else {
+	    		myObj = new File("datos.xml");
+	    	}
+			if (myObj.createNewFile()) {
+				System.out.println("File created: " + myObj.getName());
+				FileWriter wri = new FileWriter(myObj);
+				wri.write(entrada);
+				wri.close();
+			} 
+			else {
+	        System.out.println("File already exists.");
+			}
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
+	  }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -220,10 +251,79 @@ public class GestorProveedores {
 		fraGestProv.getContentPane().add(btnAceptar);
 		
 		JButton btnJson = new JButton("JSON");
+		btnJson.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String json="";
+					json+="{"+"\"ACT_PROV\":"+" [\n";
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
+					Statement jsond = con.createStatement();
+					jsond.execute("use "+"empresadb");
+					String jsonr = "Select * FROM " + "PROV_COMP";
+					ResultSet jsonsr = jsond.executeQuery(jsonr);
+					ResultSetMetaData coldate = jsonsr.getMetaData();
+					
+					while (jsonsr.next()) {
+						json+="{";
+						for(int i = 0; i < coldate.getColumnCount();i++) {
+							json+="\""+coldate.getColumnName(i+1)+"\":\""+jsonsr.getObject(i+1)+"\"";
+							if(i< coldate.getColumnCount()-1)json+=",";
+						}
+						json+="},\n";
+						
+					}
+					json+="] }";
+					
+					//System.out.println(json);
+					newFile(json,true);
+					
+				}
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
 		btnJson.setBounds(87, 310, 75, 23);
 		fraGestProv.getContentPane().add(btnJson);
 		
 		JButton btnXml = new JButton("XML");
+		btnXml.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String xml="";
+					xml+="<"+"ACT_PROV"+">\n";
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
+					Statement xmld = con.createStatement();
+					xmld.execute("use "+"empresadb");
+					String xmlr = "Select * FROM " + "PROV_COMP";
+					ResultSet xmlsr = xmld.executeQuery(xmlr);
+					ResultSetMetaData coldate = xmlsr.getMetaData();
+					
+					while (xmlsr.next()) {
+						xml+="\t<"+"proveedor"+">\n";
+						for(int i = 0; i < coldate.getColumnCount();i++) {
+							xml+="\t\t<"+coldate.getColumnName(i+1)+">"+xmlsr.getObject(i+1)+"</"+coldate.getColumnName(i+1)+">\n";
+						}
+						xml+="\t<"+"proveedor"+">\n";
+						
+					}
+					xml+="<"+"PROV_COMP"+">\n";
+					
+					//System.out.println(xml);
+					newFile(xml,false);
+					
+					
+					
+				}
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				catch(Exception e1)
+				{
+				    e1.printStackTrace(); //connection failed
+				}
+			}
+		});
 		btnXml.setBounds(172, 310, 77, 23);
 		fraGestProv.getContentPane().add(btnXml);
 		
