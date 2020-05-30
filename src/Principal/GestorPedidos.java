@@ -275,6 +275,7 @@ public class GestorPedidos {
 		frmGestorDePedidos.getContentPane().add(btnEliminar);
 		
 		JButton btnActualizar = new JButton("Actualizar");
+		btnActualizar.setEnabled(false);
 		btnActualizar.setBounds(25, 241, 115, 23);
 		frmGestorDePedidos.getContentPane().add(btnActualizar);
 		
