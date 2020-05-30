@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 
 public class GestorPedidos {
 
+	private static Connection con;
 	private JFrame frmGestorDePedidos;
 	private JTextField textField_0;
 	private JTextField textField_1;
@@ -96,6 +97,18 @@ public class GestorPedidos {
 	      e.printStackTrace();
 	    }
 	  }
+	
+	public static Connection iniForDataEx(){
+		try {
+			//Local
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");
+			//Remoto
+			//con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/empresadb9","tester12309","Testear123");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return con;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -310,8 +323,7 @@ public class GestorPedidos {
 				try {
 					String json="";
 					json+="{"+"\"act_prov\":"+" [\n";
-					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
-					Statement jsond = con.createStatement();
+					Statement jsond = iniForDataEx().createStatement();
 					jsond.execute("use "+"empresadb");
 					String jsonr = "Select * FROM " + "act_prov";
 					ResultSet jsonsr = jsond.executeQuery(jsonr);
@@ -347,8 +359,7 @@ public class GestorPedidos {
 				try {
 					String xml="";
 					xml+="<"+"act_prov"+">\n";
-					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
-					Statement xmld = con.createStatement();
+					Statement xmld = iniForDataEx().createStatement();
 					xmld.execute("use "+"empresadb");
 					String xmlr = "Select * FROM " + "act_prov";
 					ResultSet xmlsr = xmld.executeQuery(xmlr);
