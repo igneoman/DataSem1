@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 
 import javax.swing.JFrame;
@@ -109,6 +110,17 @@ public class GestorPedidos {
 		}
 		return con;
 	}
+	
+	public static int fixdataint(String fixing) {
+		if(fixing.equals("")) {
+			return 0;
+		}
+		else
+		{
+			return Integer.valueOf(fixing);
+		}
+	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -446,7 +458,7 @@ public class GestorPedidos {
 		
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField_0.setEnabled(true);
+				textField_1.setEnabled(true);
 				btnAceptar.setVisible(true);
 				btnAceptar.setEnabled(true);
 				btnAgregar.setEnabled(false);
@@ -569,22 +581,24 @@ public class GestorPedidos {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frmGestorDePedidos,"Base de datos modificada");
+				//JOptionPane.showMessageDialog(frmGestorDePedidos,"Base de datos modificada");
 				
 				
 				if (respuesta==0){
+					
 					try {
 						conexion = Connect.conecta();
 						preparedStatement = conexion.prepareStatement("Insert into act_prov VALUES (?,?,?,?,?,?,?,?,?)");
 						preparedStatement.setString(1, textField_0.getText());
 						preparedStatement.setString(2, textPane.getText());
-						preparedStatement.setInt(3, Integer.valueOf(textField_1.getText()));
+						preparedStatement.setInt(3, fixdataint(textField_1.getText()));
 						preparedStatement.setString(4, textPane_1.getText());
 						preparedStatement.setString(5, textField_2.getText());
-						preparedStatement.setInt(6, Integer.valueOf(textField_3.getText()));
-						preparedStatement.setInt(7, Integer.valueOf(textField_4.getText()));
+						preparedStatement.setInt(6, fixdataint(textField_3.getText()));
+						preparedStatement.setInt(7, fixdataint(textField_4.getText()));
 						preparedStatement.setString(8, textField_5.getText());
 						preparedStatement.setString(9, textField_6.getText());
+						
 						
 						int ok = preparedStatement.executeUpdate();
 						if (ok > 0) {
@@ -595,6 +609,9 @@ public class GestorPedidos {
 							JOptionPane.showMessageDialog(null, "Error");
 						}
 						
+					} catch(SQLIntegrityConstraintViolationException e0) {
+						
+						JOptionPane.showMessageDialog(null, "Valor duplicado o proveedor inexistente");	
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -606,11 +623,17 @@ public class GestorPedidos {
 						preparedStatement.setString(1, textField_1.getText());
 						int ok = preparedStatement.executeUpdate();
 						if (ok > 0) {
-							JOptionPane.showMessageDialog(null, "Dato añadido");
+							JOptionPane.showMessageDialog(null, "Dato eliminado");
 							conexion.close();
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "Error");
+							if(textField_1.getText().equals("")) {
+								JOptionPane.showMessageDialog(null, "Error, valor nulo");
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Error, valor inexistente");
+							}
+							
 						}
 					} catch (SQLException e1) {
 						e1.printStackTrace();
