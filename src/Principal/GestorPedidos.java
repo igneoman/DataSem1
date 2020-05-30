@@ -111,6 +111,7 @@ public class GestorPedidos {
 		return con;
 	}
 	
+	//En el caso de "" dará 0 en valores numéricos
 	public static int fixdataint(String fixing) {
 		if(fixing.equals("")) {
 			return 0;
@@ -118,6 +119,17 @@ public class GestorPedidos {
 		else
 		{
 			return Integer.valueOf(fixing);
+		}
+	}
+	
+	//En el caso de "" dará null en valores de cadena
+	public static String fixdatastr(String fixing) {
+		if(fixing.equals("")) {
+			return null;
+		}
+		else
+		{
+			return fixing;
 		}
 	}
 	
@@ -590,14 +602,14 @@ public class GestorPedidos {
 						conexion = Connect.conecta();
 						preparedStatement = conexion.prepareStatement("Insert into act_prov VALUES (?,?,?,?,?,?,?,?,?)");
 						preparedStatement.setString(1, textField_0.getText());
-						preparedStatement.setString(2, textPane.getText());
+						preparedStatement.setString(2, fixdatastr(textPane.getText()));
 						preparedStatement.setInt(3, fixdataint(textField_1.getText()));
-						preparedStatement.setString(4, textPane_1.getText());
-						preparedStatement.setString(5, textField_2.getText());
+						preparedStatement.setString(4, fixdatastr(textPane_1.getText()));
+						preparedStatement.setString(5, fixdatastr(textField_2.getText()));
 						preparedStatement.setInt(6, fixdataint(textField_3.getText()));
 						preparedStatement.setInt(7, fixdataint(textField_4.getText()));
-						preparedStatement.setString(8, textField_5.getText());
-						preparedStatement.setString(9, textField_6.getText());
+						preparedStatement.setString(8, fixdatastr(textField_5.getText()));
+						preparedStatement.setString(9, fixdatastr(textField_6.getText()));
 						
 						
 						int ok = preparedStatement.executeUpdate();
