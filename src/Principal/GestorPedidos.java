@@ -348,7 +348,10 @@ public class GestorPedidos {
 					String json="";
 					json+="{"+"\"act_prov\":"+" [\n";
 					Statement jsond = iniForDataEx().createStatement();
-					jsond.execute("use "+"empresadb");
+					//local
+					//jsond.execute("use "+"empresadb");
+					//remote
+					jsond.execute("use "+"empresadb9");
 					String jsonr = "Select * FROM " + "act_prov";
 					ResultSet jsonsr = jsond.executeQuery(jsonr);
 					ResultSetMetaData coldate = jsonsr.getMetaData();
@@ -384,7 +387,10 @@ public class GestorPedidos {
 					String xml="";
 					xml+="<"+"act_prov"+">\n";
 					Statement xmld = iniForDataEx().createStatement();
-					xmld.execute("use "+"empresadb");
+					//local
+					//xmld.execute("use "+"empresadb");
+					//remote	
+					xmld.execute("use "+"empresadb9");
 					String xmlr = "Select * FROM " + "act_prov";
 					ResultSet xmlsr = xmld.executeQuery(xmlr);
 					ResultSetMetaData coldate = xmlsr.getMetaData();

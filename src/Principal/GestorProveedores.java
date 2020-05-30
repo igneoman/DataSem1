@@ -90,10 +90,10 @@ public class GestorProveedores {
 			File myObj=null;
 	    
 			if (tipo==true) {
-				myObj = new File("datos.json");
+				myObj = new File("datosP.json");
 			}
 	    	else {
-	    		myObj = new File("datos.xml");
+	    		myObj = new File("datosP.xml");
 	    	}
 			if (myObj.createNewFile()) {
 				System.out.println("File created: " + myObj.getName());
@@ -294,7 +294,10 @@ public class GestorProveedores {
 					String json="";
 					json+="{"+"\"ACT_PROV\":"+" [\n";
 					Statement jsond = iniForDataEx().createStatement();
-					jsond.execute("use "+"empresadb");
+					//local
+					//jsond.execute("use "+"empresadb");
+					//remote
+					jsond.execute("use "+"empresadb9");
 					String jsonr = "Select * FROM " + "prov_comp";
 					ResultSet jsonsr = jsond.executeQuery(jsonr);
 					ResultSetMetaData coldate = jsonsr.getMetaData();
@@ -329,7 +332,10 @@ public class GestorProveedores {
 					String xml="";
 					xml+="<"+"ACT_PROV"+">\n";
 					Statement xmld = iniForDataEx().createStatement();
-					xmld.execute("use "+"empresadb");
+					//local
+					//xmld.execute("use "+"empresadb");
+					//remote	
+					xmld.execute("use "+"empresadb9");
 					String xmlr = "Select * FROM " + "prov_comp";
 					ResultSet xmlsr = xmld.executeQuery(xmlr);
 					ResultSetMetaData coldate = xmlsr.getMetaData();
