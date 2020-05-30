@@ -102,9 +102,9 @@ public class GestorPedidos {
 	public static Connection iniForDataEx(){
 		try {
 			//Local
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");
+			//con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");
 			//Remoto
-			//con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/empresadb9","tester12309","Testear123");
+			con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/empresadb9","tester12309","Testear123");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
