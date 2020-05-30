@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 
 public class GestorProveedores {
@@ -119,6 +120,28 @@ public class GestorProveedores {
 			e.printStackTrace();
 		}
 		return con;
+	}
+	
+	//En el caso de "" dará 0 en valores numéricos
+	public static int fixdataint(String fixing) {
+		if(fixing.equals("")) {
+			return 0;
+		}
+		else
+		{
+			return Integer.valueOf(fixing);
+		}
+	}
+	
+	//En el caso de "" dará null en valores de cadena
+	public static String fixdatastr(String fixing) {
+		if(fixing.equals("")) {
+			return null;
+		}
+		else
+		{
+			return fixing;
+		}
 	}
 
 	/**
@@ -373,31 +396,38 @@ public class GestorProveedores {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (crear){
+					
+					if(textField_0.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "Datos insuficientes");
+					}
+					else {
 				
-					try {
-						conexion = Connect.conecta();
-						preparedStatement = conexion.prepareStatement("Insert into prov_comp VALUES (?,?,?,?,?,?)");
-						preparedStatement.setString(1, textField_0.getText());
-						preparedStatement.setString(3, textField_1.getText());
-						preparedStatement.setString(4, textField_2.getText());
-						preparedStatement.setString(5, textField_3.getText());
-						preparedStatement.setString(6, textField_4.getText());
-						preparedStatement.setString(2, textPane.getText());
-						
-						int ok = preparedStatement.executeUpdate();
-						if (ok > 0) {
-							JOptionPane.showMessageDialog(null, "Dato agregado");
-							conexion.close();
+						try {
+							conexion = Connect.conecta();
+							preparedStatement = conexion.prepareStatement("Insert into prov_comp VALUES (?,?,?,?,?,?)");
+							preparedStatement.setString(1, fixdatastr(textField_0.getText()));
+							preparedStatement.setString(3, fixdatastr(textField_1.getText()));
+							preparedStatement.setString(4, fixdatastr(textField_2.getText()));
+							preparedStatement.setString(5, fixdatastr(textField_3.getText()));
+							preparedStatement.setString(6, fixdatastr(textField_4.getText()));
+							preparedStatement.setString(2, fixdatastr(textPane.getText()));
+							
+							int ok = preparedStatement.executeUpdate();
+							if (ok > 0) {
+								JOptionPane.showMessageDialog(null, "Dato agregado");
+								conexion.close();
+							}
+							else if(conexion==null) {
+								JOptionPane.showMessageDialog(null, "Error agregar, valor nulo");
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Error agregar");
+							}
+						} catch(SQLIntegrityConstraintViolationException e0) {
+							JOptionPane.showMessageDialog(null, "Valor duplicado");	
+						} catch (SQLException e1) {
+							e1.printStackTrace();
 						}
-						else if(conexion==null) {
-							JOptionPane.showMessageDialog(null, "Error agregar, valor nulo");
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "Error agregar");
-						}
-						
-					} catch (SQLException e1) {
-						e1.printStackTrace();
 					}
 				
 				}
