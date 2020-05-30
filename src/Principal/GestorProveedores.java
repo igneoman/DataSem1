@@ -27,7 +27,6 @@ import java.sql.Statement;
 
 public class GestorProveedores {
 
-	private static Connection con = null;
 	private JFrame fraGestProv;
 	private JFrame padre;
 	private JTextField textField_0;
@@ -108,18 +107,6 @@ public class GestorProveedores {
 	      e.printStackTrace();
 	    }
 	  }
-	
-	public static Connection iniForDataEx(){
-		try {
-			//Local
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");
-			//Remoto
-			//con=DriverManager.getConnection("jdbc:mysql://db4free.net:3306/empresadb9","tester12309","Testear123");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return con;
-	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -263,16 +250,14 @@ public class GestorProveedores {
 		btnAceptar.setBounds(126, 353, 89, 23);
 		fraGestProv.getContentPane().add(btnAceptar);
 		
-		
 		JButton btnJson = new JButton("JSON");
 		btnJson.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String json="";
 					json+="{"+"\"ACT_PROV\":"+" [\n";
-					//Local
-					//Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
-					Statement jsond = iniForDataEx().createStatement();
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
+					Statement jsond = con.createStatement();
 					jsond.execute("use "+"empresadb");
 					String jsonr = "Select * FROM " + "prov_comp";
 					ResultSet jsonsr = jsond.executeQuery(jsonr);
@@ -307,9 +292,8 @@ public class GestorProveedores {
 				try {
 					String xml="";
 					xml+="<"+"ACT_PROV"+">\n";
-					//Local
-					//Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
-					Statement xmld = iniForDataEx().createStatement();
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
+					Statement xmld = con.createStatement();
 					xmld.execute("use "+"empresadb");
 					String xmlr = "Select * FROM " + "prov_comp";
 					ResultSet xmlsr = xmld.executeQuery(xmlr);
