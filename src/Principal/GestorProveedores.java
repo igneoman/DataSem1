@@ -270,8 +270,6 @@ public class GestorProveedores {
 				try {
 					String json="";
 					json+="{"+"\"ACT_PROV\":"+" [\n";
-					//Local
-					//Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
 					Statement jsond = iniForDataEx().createStatement();
 					jsond.execute("use "+"empresadb");
 					String jsonr = "Select * FROM " + "prov_comp";
@@ -307,8 +305,6 @@ public class GestorProveedores {
 				try {
 					String xml="";
 					xml+="<"+"ACT_PROV"+">\n";
-					//Local
-					//Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/empresadb","root","");  
 					Statement xmld = iniForDataEx().createStatement();
 					xmld.execute("use "+"empresadb");
 					String xmlr = "Select * FROM " + "prov_comp";
