@@ -47,7 +47,7 @@ public class GestorProveedores {
 	/**
 	 * Launch the application. Deshabilitar después
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,7 +58,7 @@ public class GestorProveedores {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
